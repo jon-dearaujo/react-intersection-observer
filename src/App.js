@@ -1,24 +1,6 @@
 import React from "react";
 import "./App.css";
-
-// This line is not really relevant in real world. It is a mock.
-// In a production app the data comes from a HTTP Request or Redux.
-// It is not loading (Or generating, as it is a generator lol) any data yet,
-// just initializing an iterator for us to simulate continuous data loading
-const dataSource = getItems();
-
-function* getItems() {
-  let itemsCount = 0;
-  while (true) {
-    yield [...Array(20).keys()].map(() => {
-      itemsCount = itemsCount + 1;
-      return {
-        label: `Item number ${itemsCount}`,
-        id: itemsCount,
-      };
-    });
-  }
-}
+import DataSource from "./DataSource";
 
 function App() {
   let lastItemRef = React.useRef(null);
@@ -27,7 +9,7 @@ function App() {
   let observer: IntersectionObserver;
 
   function loadData() {
-    const newData = dataSource.next().value;
+    const newData = DataSource.next().value;
     setDataList((previousDataList) => [...previousDataList, ...newData]);
   }
   React.useEffect(() => {
