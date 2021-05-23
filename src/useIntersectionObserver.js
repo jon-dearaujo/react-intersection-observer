@@ -1,4 +1,5 @@
 import React from "react";
+
 export default function useIntersectionObserver(
   rootRef,
   targetRef,
@@ -9,9 +10,6 @@ export default function useIntersectionObserver(
       const interceptConfig = {
         root: rootRef.current,
         rootMargin: "0px",
-        //Beware of the container's padding.
-        // It might impact on how much of your target is actually visible
-        // and making it impossible for this criteria to be fulfilled
         threshold: 0.1,
       };
 
