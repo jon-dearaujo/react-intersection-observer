@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import DataSource from "./DataSource";
+import useIntersectionObserver from "./useIntersectionObserver";
 
 function App() {
   let lastItemRef = React.useRef(null);
@@ -16,29 +17,7 @@ function App() {
     loadData();
   }, []);
 
-  React.useEffect(() => {
-    if (rootRef.current && lastItemRef.current) {
-      const interceptConfig = {
-        root: rootRef.current,
-        rootMargin: "0px",
-        //Beware of the container's padding.
-        // It might impact on how much of your target is actually visible
-        // and making it impossible for this criteria to be fulfilled
-        threshold: 0.1,
-      };
-
-      observer = new IntersectionObserver((entries) => {
-        if (entries.every((entry) => entry.isIntersecting)) {
-          loadData();
-        }
-      }, interceptConfig);
-
-      observer.observe(lastItemRef.current);
-      return () => {
-        observer.disconnect();
-      };
-    }
-  }, [rootRef.current, lastItemRef.current, observer]);
+  useIntersectionObserver(rootRef, lastItemRef, loadData);
 
   // Get the next-to-last item as target index
   const referenceDataListIndex = dataList.length - 2;
