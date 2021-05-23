@@ -9,7 +9,7 @@ function App() {
   let observer: IntersectionObserver;
 
   function loadData() {
-    const newData = DataSource.next().value;
+    const newData = DataSource.loadData();
     setDataList((previousDataList) => [...previousDataList, ...newData]);
   }
   React.useEffect(() => {

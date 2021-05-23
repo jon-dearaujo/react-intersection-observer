@@ -2,7 +2,7 @@
  * Mock for data source using a *generator.
  */
 
-const DataSource = getItems();
+const dataSource = getItems();
 
 function* getItems() {
   let itemsCount = 0;
@@ -17,4 +17,6 @@ function* getItems() {
   }
 }
 
-export default DataSource;
+export default {
+  loadData: () => dataSource.next().value,
+};
